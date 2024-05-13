@@ -1,17 +1,13 @@
-from mysql.connector import connect
+import sqlite3
 
+database:str = "library.db"
 
-def dbconnect():
-    return connect(
-        host='127.0.0.1',
-        user='root',
-        password='',
-        database='library_MS'
-    );
+def connect():
+    return sqlite3.connect(database)
 
 def getprocess(sql:str)->list:
     conn = connect()
-    conn.row_factory = mysql.Row #return dictionary format
+    conn.row_factory = sqlite3.Row #return dictionary format
     cursor = conn.cursor()
     cursor.execute(sql)
     rows = cursor.fetchall()
